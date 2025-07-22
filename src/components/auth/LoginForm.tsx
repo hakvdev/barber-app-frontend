@@ -7,9 +7,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { loginService } from "../../services/auth/login-service";
+import getUserInfoService from "../../services/getUserInfo-service";
+import { useUserStore } from "../../store/userStore";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setSession } = useUserStore();
   const {
     register,
     handleSubmit,
@@ -18,19 +21,23 @@ export default function Login() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const { mutate, isPending, error } = useMutation({
+  const loginMutation = useMutation({
     mutationFn: loginService,
-    onSuccess: () => {
-      alert("Accediste correctamente!");
-    },
-    onError: (error: Error) => {
-      console.log(error.message);
+    onSuccess: async (token) => {
+      try {
+        const user = await getUserInfoService(token);
+        setSession(user, token);
+        console.log(user)
+        alert("Accediste correctamente!");
+        navigate("/dashboard");
+      } catch (error: any) {
+        console.error("Error de login: ", error.message);
+      }
     },
   });
 
   const onSubmit = (data: loginFormSchemaType) => {
-    mutate(data);
-    return data;
+    loginMutation.mutate(data);
   };
 
   return (
@@ -65,12 +72,16 @@ export default function Login() {
       <button
         type="submit"
         className="w-[150px] self-center bg-blue-500 hover:bg-amber-600 text-black font-medium p-2 transition-colors rounded-lg "
-        disabled={isPending}
+        disabled={loginMutation.isPending}
       >
-        {isPending ? "Iniciando sesión" : "Iniciar sesión"}
+        {loginMutation.isPending ? "Iniciando sesión" : "Iniciar sesión"}
       </button>
 
-      {error && <span className="text-ls text-red-400">{error.message}</span>}
+      {loginMutation.error && (
+        <span className="text-ls text-red-400">
+          {loginMutation.error.message}
+        </span>
+      )}
 
       <div className="text-center">
         <button

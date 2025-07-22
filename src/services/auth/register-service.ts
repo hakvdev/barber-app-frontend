@@ -1,11 +1,9 @@
-import axios from "axios";
 import type { registerFormSchemaType } from "../../zod-schemas/register-form-schema";
-
-const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
+import { apiAuth } from "./api/api";
 
 export async function registerUserService(data: registerFormSchemaType) {
   try {
-    const res = await axios.post(`${apiUrl}/auth/register`, data);
+    const res = await apiAuth.post("/register", data)
     return res.data;
   } catch (err: any) {
     const message =

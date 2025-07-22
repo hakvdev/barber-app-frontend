@@ -8,7 +8,8 @@ export default function PublicRoutes() {
     <Routes>
       <Route element={<AuthLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <Route path="register" element={<RegisterForm />} />
+        <Route path="*" element={<h1 className="font-bold text-xl text-white">404 Not Found</h1>}/>
       </Route>
     </Routes>
   );
