@@ -6,8 +6,6 @@ export const loginService = async (data: loginFormSchemaType) => {
         const res = await apiAuth.post("/login", data);
 
         const { token } = res.data;
-
-        localStorage.setItem("token", token);
     
         return token ;
     } catch (err: any) {

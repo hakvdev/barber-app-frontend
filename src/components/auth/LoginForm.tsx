@@ -71,7 +71,7 @@ export default function Login() {
 
       <button
         type="submit"
-        className="w-[150px] self-center bg-blue-500 hover:bg-amber-600 text-black font-medium p-2 transition-colors rounded-lg "
+        className="w-[150px] self-center bg-orange-700 hover:bg-orange-500 text-black font-medium p-2 transition-colors rounded-lg "
         disabled={loginMutation.isPending}
       >
         {loginMutation.isPending ? "Iniciando sesión" : "Iniciar sesión"}
