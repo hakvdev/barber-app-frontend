@@ -17,7 +17,7 @@ export default function UserCard ({user} :  UserProps) {
     const {logout} = useUserStore()
 
   return (
-    <div className="bg-zinc-800 rounded-xl shadow-lg p-6 w-[300px] h-[130px] border-4 border-gray-300 flex items-center justify-between">
+    <div className="bg-zinc-800 rounded-xl shadow-lg p-6 w-[300px] h-[150px] border-4 border-gray-300 flex items-center justify-between">
       {/* Información del usuario - lado izquierdo */}
       <div className="flex-1">
         <div className="flex items-center space-x-2 mb-1">
@@ -26,7 +26,7 @@ export default function UserCard ({user} :  UserProps) {
         </div>
         <p className="text-xs text-gray-50 truncate mb-1">{user.email}</p>
         <span className="px-2 py-0.5 border border-green-500 text-gray-50 rounded-full text-xs font-medium">
-          Rol: {user.role.toLowerCase()}
+          Rol: {user.role === "CLIENT" ? "Cliente" : "Barbero"}
         </span>
       </div>
 
@@ -36,8 +36,15 @@ export default function UserCard ({user} :  UserProps) {
           onClick={() => {}}
           className="px-3 py-1 border cursor-pointer border-orange-700 hover:bg-orange-700 text-white text-xs font-medium rounded-md transition-colors duration-200"
         >
-          Editar
+          Editar mi Perfil
         </button>
+        {user.role === "BARBER" && (
+          <button 
+          onClick={() => {}} 
+          className="px-3 py-1 border cursor-pointer border-blue-600 hover:bg-blue-600 text-white text-xs font-medium rounded-md transition-colors duration-200">
+            Servicios
+          </button>
+        )}
         <button
           onClick={() => {}}
           className="px-3 py-1 border cursor-pointer border-blue-600 hover:bg-blue-600 text-white text-xs font-medium rounded-md transition-colors duration-200"

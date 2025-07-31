@@ -1,9 +1,10 @@
-import BarberCard from "../components/Barber/BarberComponent";
+
+import BarberCard from "../components/barber/BarberCard";
 import Logo from "../components/Logo";
 import UserCard from "../components/UserCard";
 import { useUserStore } from "../store/userStore";
 
-export default function Dashboard() {
+export default function ClientDashboard() {
   const barberSimulated = [
   {
     barberName: "Pablo Fernández",
@@ -57,13 +58,15 @@ export default function Dashboard() {
   },
 ];
 
-  const { user } = useUserStore();
+  const { user, logout } = useUserStore();
   if (!user) {
     return;
   }
-  return (
+
+  if(user.role === "CLIENT") {
+    return (
     <div className="w-full min-h-screen bg-zinc-900">
-      <div className="flex justify-between items-center p-2">
+      <div className="flex justify-between p-2">
         <Logo />
         <UserCard user={user} />
       </div>
@@ -86,5 +89,14 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  );}
+
+  if(user.role === "BARBER") {
+    return (
+      <div>
+        <h1>Hola, eres un barbero</h1>
+        <button onClick={logout} className="bg-red-400 rounded p-2 cursor-pointer">Salir</button>
+      </div>
+    )
+  }
 }

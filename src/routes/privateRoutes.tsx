@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../components/auth/RequireAuth";
-import Dashboard from "../pages/Dashboard";
+import DashboardRouter from "./dashboardRouter";
 
 export default function PrivateRoutes() {
   return (
@@ -9,7 +9,7 @@ export default function PrivateRoutes() {
         path=""
         element={
           <RequireAuth>
-            <Dashboard />
+            <DashboardRouter />
           </RequireAuth>
         }
        />

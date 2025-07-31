@@ -11,6 +11,7 @@ type BarberProps = {
 }
 
 export default function BarberCard({ barber }: BarberProps) {
+
   return (
     <div className="bg-zinc-800 rounded-xl shadow-lg p-4 w-full max-w-[350px] min-h-[120px] border border-orange-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       {/* Información del barbero */}

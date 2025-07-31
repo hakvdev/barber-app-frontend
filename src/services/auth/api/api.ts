@@ -15,3 +15,10 @@ export const apiUser = axios.create ({
         "Content-Type" : "application/json"
     }
 })
+
+export const apiBarber = axios.create ({
+  baseURL: `${baseUrlApi}/barber`,
+  headers: {
+    "Content-Type": "applicacion/json"
+  }
+})
